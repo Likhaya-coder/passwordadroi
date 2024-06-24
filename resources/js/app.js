@@ -1,4 +1,5 @@
 import './bootstrap';
+import './advert-simulation';
 
 import Alpine from 'alpinejs';
 
