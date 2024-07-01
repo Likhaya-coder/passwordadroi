@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetForm = document.getElementById("reset-password");
     const dateInput = document.getElementById("dateInput");
     const buyDateInput = document.getElementById("buyDate");
-    const resetPasswordForm = document.getElementById("resetPasswordForm");
-    const skipButton = document.getElementById("skipButton");
+    const skipButton = document.createElement('button');
 
     const videoUrls = [
         "/videos/adv1.mp4",
@@ -20,52 +19,17 @@ document.addEventListener("DOMContentLoaded", function() {
         return videoUrls[randomIndex];
     }
 
-    // Function to play the video
     function playVideo() {
         const randomVideoUrl = getRandomVideoUrl();
         adVideo.src = randomVideoUrl;
         adVideo.play();
     }
 
-    // Event listener for when the video ends
     adVideo.addEventListener("ended", function() {
         advertisement.style.display = "none";
         interestForm.style.display = "block";
     });
 
-    // Event listener for the skip button
-    skipButton.addEventListener("click", function() {
-        advertisement.style.display = "none";
-        interestForm.style.display = "none"; // Hide interest form if visible
-        resetForm.style.display = "block"; // Display reset password form
-    });
-
-    // Event listener for the interest form submission
-    interestForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
-        const selectedOption = document.querySelector('input[name="interest"]:checked');
-        if (selectedOption) {
-            if (selectedOption.value === "yes") {
-                const selectedDate = buyDateInput.value;
-                if (!selectedDate) {
-                    alert("Please select a date.");
-                    return;
-                }
-                const currentDate = new Date();
-                const inputDate = new Date(selectedDate);
-                if (inputDate < currentDate) {
-                    alert("Please choose a date that is current or in the future.");
-                    return;
-                }
-            }
-            interestForm.style.display = "none";
-            resetForm.style.display = "block";
-        } else {
-            alert("Please select an option.");
-        }
-    });
-
-    // Event listener for radio button change in the interest form
     document.querySelectorAll('input[name="interest"]').forEach(radio => {
         radio.addEventListener("change", function() {
             if (this.value === "yes") {
@@ -76,6 +40,53 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Call the function to play video on page load
+    skipButton.innerText = 'Skip';
+    skipButton.classList.add('bg-red-500', 'hover:bg-red-600', 'text-white', 'font-semibold', 'py-2', 'px-4', 'rounded-lg', 'mt-4');
+    skipButton.addEventListener('click', function() {
+        adVideo.pause();
+        advertisement.style.display = "none";
+        interestForm.style.display = "block";
+    });
+    advertisement.appendChild(skipButton);
+
+    interestForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const selectedInterest = document.querySelector('input[name="interest"]:checked');
+        if (!selectedInterest) {
+            alert("Please select if you are interested in buying this product.");
+            return;
+        }
+
+        if (selectedInterest.value === "yes") {
+            const selectedDate = new Date(buyDateInput.value);
+            const currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+
+            if (!buyDateInput.value || selectedDate < currentDate) {
+                alert("Please select a valid date that is today or in the future.");
+                return;
+            }
+        }
+
+        const formData = new FormData(interestForm);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", interestForm.action, true);
+        xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]').getAttribute("content"));
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                interestForm.style.display = "none";
+                resetForm.style.display = "block";
+                // Optionally, redirect here if necessary
+                window.location.href = '/forgot-password';
+            } else {
+                window.location.href = '/forgot-password';
+            }
+        };
+
+        xhr.send(formData);
+    });
+
     playVideo();
 });
