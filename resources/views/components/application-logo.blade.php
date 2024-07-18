@@ -1,1 +1,1 @@
-<img width="60px" height="50px" src="/images/passwordadroi-logo.png" alt="">
+<!--<img width="60px" height="50px" src="/images/passwordadroi-logo.png" alt="">-->

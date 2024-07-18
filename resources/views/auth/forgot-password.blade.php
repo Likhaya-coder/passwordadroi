@@ -13,28 +13,21 @@
         <div class="main container mx-auto">
             <div class="container-forgot-password max-w-2xl mx-auto py-8">
                 <div id="advertisement" class="max-w-2xl mx-auto mb-8">
-                    <video width="100%" style="border: none; outline: none;" id="adVideo" autoplay muted playsinline>
-                        <source id="videoSource" src="{{ asset('videos/adv1.mp4') }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <p class="text-center text-sm text-gray-600 mt-2">This is a video advertisement. Are you interested?</p>
-                    {{-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5164847289496611"
-                        crossorigin="anonymous"></script>
-                    <!-- PassWiz -->
-                    <ins class="adsbygoogle"
-                        style="display:block"
-                        data-ad-client="ca-pub-5164847289496611"
-                        data-ad-slot="7906708930"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script> --}}
+                    <div class="ad-image-container relative">
+                        <img id="adImage" src="{{ asset('images/ad1.jpg') }}" alt="Advertisement" width="100%" style="border: none; outline: none;">
+                        <div class="ad-promotion-badge w-11 absolute top-2 left-2 bg-blue-600 text-white text-xs px-3 pt-1 rounded">
+                            Promotion <br> OFF
+                        </div>
+                        <div class="ad-details absolute bottom-0 left-0 right-0 bg-white px-4 py-2">
+                            <p class="ad-title font-thin text-gray-500 text-md mb-1">Product Title</p>
+                            <p class="ad-price text-black font-extrabold">Price: R100</p>
+                        </div>
+                    </div>
                 </div>
 
                 <form id="interestForm" class="container-advert bg-gray-800 text-white rounded-lg shadow-lg p-6" action="{{ route('interest.store') }}" method="POST" style="display: none;">
                     @csrf
-                    <h3 class="text-lg font-semibold mb-4">Are you interested in buying this product?</h3>
+                    <p class="mb-4">Are you interested in buying the product?</p>
                     <div class="flex items-center mb-4">
                         <input type="radio" id="interestYes" name="interest" value="yes" class="mr-2">
                         <label for="interestYes" class="text-white">Yes</label>
@@ -62,7 +55,3 @@
     </x-guest-layout>
 </body>
 </html>
- 
-
-
-

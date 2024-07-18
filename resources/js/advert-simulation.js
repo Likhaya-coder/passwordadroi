@@ -1,34 +1,54 @@
 document.addEventListener("DOMContentLoaded", function() {
     const advertisement = document.getElementById("advertisement");
-    const adVideo = document.getElementById("adVideo");
+    const adImage = document.getElementById("adImage");
+    const adPromotionBadge = document.querySelector(".ad-promotion-badge");
+    const adTitle = document.querySelector(".ad-title");
+    const adPrice = document.querySelector(".ad-price");
     const interestForm = document.getElementById("interestForm");
     const resetForm = document.getElementById("reset-password");
     const dateInput = document.getElementById("dateInput");
     const buyDateInput = document.getElementById("buyDate");
     const skipButton = document.createElement('button');
 
-    const videoUrls = [
-        "/videos/adv1.mp4",
-        "/videos/adv2.mp4",
-        "/videos/adv3.mp4",
-        "/videos/adv4.mp4"
+    const ads = [
+        {
+            imageUrl: "/images/Coral Fleece - Fitted Electric Blanket.jpg",
+            promotion: "20%",
+            title: "Coral Fleece Fitted Electric Blanket",
+            price: "R 1,300"
+        },
+        {
+            imageUrl: "/images/Marco Tripod Stool - Black.jpg",
+            promotion: "48%",
+            title: "Marco Tripod Stool - Black",
+            price: "R 109"
+        },
+        {
+            imageUrl: "/images/Bolt Cutter 750mm.jpg",
+            promotion: "16%",
+            title: "Bolt Cutter 750mm",
+            price: "R 499"
+        },
+        {
+            imageUrl: "/images/House of Hamilton - Single Continental Pillow.jpeg",
+            promotion: "32%",
+            title: "House of Hamilton - Single Continental Pillow",
+            price: "R 229"
+        }
     ];
 
-    function getRandomVideoUrl() {
-        const randomIndex = Math.floor(Math.random() * videoUrls.length);
-        return videoUrls[randomIndex];
+    function getRandomAd() {
+        const randomIndex = Math.floor(Math.random() * ads.length);
+        return ads[randomIndex];
     }
 
-    function playVideo() {
-        const randomVideoUrl = getRandomVideoUrl();
-        adVideo.src = randomVideoUrl;
-        adVideo.play();
+    function showAd() {
+        const ad = getRandomAd();
+        adImage.src = ad.imageUrl;
+        adPromotionBadge.textContent = ad.promotion + " OFF";
+        adTitle.textContent = ad.title;
+        adPrice.textContent = ad.price;
     }
-
-    adVideo.addEventListener("ended", function() {
-        advertisement.style.display = "none";
-        interestForm.style.display = "block";
-    });
 
     document.querySelectorAll('input[name="interest"]').forEach(radio => {
         radio.addEventListener("change", function() {
@@ -43,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
     skipButton.innerText = 'Skip';
     skipButton.classList.add('bg-red-500', 'hover:bg-red-600', 'text-white', 'font-semibold', 'py-2', 'px-4', 'rounded-lg', 'mt-4');
     skipButton.addEventListener('click', function() {
-        adVideo.pause();
         advertisement.style.display = "none";
         interestForm.style.display = "block";
     });
@@ -54,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const selectedInterest = document.querySelector('input[name="interest"]:checked');
         if (!selectedInterest) {
-            alert("Please select if you are interested in buying this product.");
+            showPopup("Please select if you are interested in buying this product.");
             return;
         }
 
@@ -64,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
             currentDate.setHours(0, 0, 0, 0);
 
             if (!buyDateInput.value || selectedDate < currentDate) {
-                alert("Please select a valid date that is today or in the future.");
+                showPopup("Please select a valid date that is today or in the future.");
                 return;
             }
         }
@@ -78,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (xhr.status === 200) {
                 interestForm.style.display = "none";
                 resetForm.style.display = "block";
-                // Optionally, redirect here if necessary
                 window.location.href = '/forgot-password';
             } else {
                 window.location.href = '/forgot-password';
@@ -88,5 +106,27 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.send(formData);
     });
 
-    playVideo();
+    showAd();
 });
+
+function showPopup(message) {
+    const popup = document.createElement("div");
+    popup.classList.add("popup");
+    popup.innerText = message;
+
+    const overlay = document.createElement("div");
+    overlay.classList.add("popup-overlay");
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+
+    popup.addEventListener("click", function() {
+        document.body.removeChild(overlay);
+    });
+
+    setTimeout(function() {
+        if (document.body.contains(overlay)) {
+            document.body.removeChild(overlay);
+        }
+    }, 3000);
+}
