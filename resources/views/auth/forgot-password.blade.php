@@ -27,7 +27,12 @@
 
                 <form id="interestForm" class="container-advert bg-gray-800 text-white rounded-lg shadow-lg p-6" action="{{ route('interest.store') }}" method="POST" style="display: none;">
                     @csrf
-                    <p class="mb-4">Are you interested in buying the product?</p>
+                    <p class="mb-4">Are you interested on buying the product?</p>
+
+                    <input type="hidden" name="product_title" id="productTitle" value="">
+                    <input type="hidden" name="price" id="price" value="">
+                    <input type="hidden" name="promotion" id="promotion" value="">
+
                     <div class="flex items-center mb-4">
                         <input type="radio" id="interestYes" name="interest" value="yes" class="mr-2">
                         <label for="interestYes" class="text-white">Yes</label>
@@ -36,16 +41,23 @@
                         <input type="radio" id="interestNo" name="interest" value="no" class="mr-2">
                         <label for="interestNo" class="text-white">No</label>
                     </div>
-
+                
                     <div id="dateInput" class="hidden">
                         <label for="buyDate" class="text-white">When do you plan to buy?</label>
                         <input type="date" id="buyDate" name="buyDate" class="block w-full mt-1 mb-4 bg-gray-700 text-white p-2 rounded-md">
                     </div>
 
+                    <p class="py-4">Signup to receive products on promotion</p>
+                    <div class="mb-8">
+                        <x-input-label for="user_email" :value="__('Email')" />
+                        <x-text-input id="user_email" class="block mt-1 w-full" type="email" name="user_email" :value="old('user_email')" required autofocus />
+                        <x-input-error :messages="$errors->get('user_email')" class="mt-2" />
+                    </div>
+                
                     <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
                         Submit
                     </button>
-                </form>
+                </form>                
             </div>
         </div>
 

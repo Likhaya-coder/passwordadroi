@@ -11,6 +11,10 @@ class UserInterest extends Model
 
     protected $fillable = [
         'interested',
+        'product_title',
+        'user_email',
         'purchase_date',
+        'price',
+        'promotion',
     ];
 }

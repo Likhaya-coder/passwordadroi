@@ -13,15 +13,20 @@ class UserInterestController extends Controller
     {
         return view('auth.forgot-password');
     }
+
     public function store(InterestFormRequest $request)
     {
         // Validate the request using InterestFormRequest
         $validated = $request->validated();
 
-        // Store user's interest and purchase date
+        // Store user's interest and purchase date     
         UserInterest::create([
             'interested' => $validated['interest'] === 'yes',
+            'product_title' => $validated['product_title'],
+            'user_email' => $validated['user_email'],
             'purchase_date' => $validated['buyDate'],
+            'price' => $validated['price'],
+            'promotion' => $validated['promotion'],
         ]);
 
         // Redirect to the password reset view

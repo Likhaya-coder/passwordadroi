@@ -45,9 +45,18 @@ document.addEventListener("DOMContentLoaded", function() {
     function showAd() {
         const ad = getRandomAd();
         adImage.src = ad.imageUrl;
-        adPromotionBadge.textContent = ad.promotion + " OFF";
+        adPromotionBadge.textContent = ad.promotion;
         adTitle.textContent = ad.title;
         adPrice.textContent = ad.price;
+
+        // Set product title to the hidden input field
+        document.getElementById('productTitle').value = ad.title;
+
+        // Set product title to the hidden input field
+        document.getElementById('price').value = ad.price;
+
+        // Set product title to the hidden input field
+        document.getElementById('promotion').value = ad.promotion;
     }
 
     document.querySelectorAll('input[name="interest"]').forEach(radio => {

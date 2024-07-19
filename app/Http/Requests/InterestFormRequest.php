@@ -24,6 +24,10 @@ class InterestFormRequest extends FormRequest
         return [
             'interest' => 'required|in:yes,no',
             'buyDate' => 'nullable|date|after_or_equal:today', // Assuming buyDate is the input name for purchase date
+            'product_title' => 'required|string',
+            'user_email' => 'required|string|email',
+            'price' => 'nullable|regex:/^R\s\d{1,3}(,\d{3})*$/',
+            'promotion' => 'nullable|string|max:10',
         ];
     }
 }

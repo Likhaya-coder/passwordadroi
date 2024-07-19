@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('user_interests', function (Blueprint $table) {
             $table->id();
             $table->boolean('interested');
+            $table->string('product_title');
+            $table->string('user_email');
             $table->date('purchase_date')->nullable();
+            $table->string('price');
+            $table->string('promotion')->nullable();
             $table->timestamps();
         });
     }
