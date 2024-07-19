@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const advertisement = document.getElementById("advertisement");
-    const adImage = document.getElementById("adImage");
+    const advertisement = document.querySelector("#advertisement");
+    const adImage = document.querySelector("#adImage");
     const adPromotionBadge = document.querySelector(".ad-promotion-badge");
     const adTitle = document.querySelector(".ad-title");
     const adPrice = document.querySelector(".ad-price");
-    const interestForm = document.getElementById("interestForm");
-    const resetForm = document.getElementById("reset-password");
-    const dateInput = document.getElementById("dateInput");
-    const buyDateInput = document.getElementById("buyDate");
-    const skipButton = document.createElement('button');
+    const interestForm = document.querySelector("#interestForm");
+    const dateInput = document.querySelector("#dateInput");
+    const buyDateInput = document.querySelector("#buyDate");
+    const skipButton = document.querySelector('.skip-button');
 
     const ads = [
         {
@@ -45,17 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function showAd() {
         const ad = getRandomAd();
         adImage.src = ad.imageUrl;
-        adPromotionBadge.textContent = ad.promotion;
+        adPromotionBadge.textContent = ad.promotion + " OFF";
         adTitle.textContent = ad.title;
         adPrice.textContent = ad.price;
 
-        // Set product title to the hidden input field
         document.getElementById('productTitle').value = ad.title;
-
-        // Set product title to the hidden input field
         document.getElementById('price').value = ad.price;
-
-        // Set product title to the hidden input field
         document.getElementById('promotion').value = ad.promotion;
     }
 
@@ -69,13 +63,10 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    skipButton.innerText = 'Skip';
-    skipButton.classList.add('bg-red-500', 'hover:bg-red-600', 'text-white', 'font-semibold', 'py-2', 'px-4', 'rounded-lg', 'mt-4');
     skipButton.addEventListener('click', function() {
         advertisement.style.display = "none";
         interestForm.style.display = "block";
     });
-    advertisement.appendChild(skipButton);
 
     interestForm.addEventListener("submit", function(event) {
         event.preventDefault();
@@ -105,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.onload = function() {
             if (xhr.status === 200) {
                 interestForm.style.display = "none";
-                resetForm.style.display = "block";
                 window.location.href = '/forgot-password';
             } else {
                 window.location.href = '/forgot-password';
@@ -115,27 +105,17 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.send(formData);
     });
 
+    function showPopup(message) {
+        const popupContainer = document.getElementById("popupContainer");
+        const popupMessage = document.getElementById("popupMessage");
+
+        popupMessage.textContent = message;
+        popupContainer.style.display = "flex";
+
+        setTimeout(function() {
+            popupContainer.style.display = "none";
+        }, 3000);
+    }
+
     showAd();
 });
-
-function showPopup(message) {
-    const popup = document.createElement("div");
-    popup.classList.add("popup");
-    popup.innerText = message;
-
-    const overlay = document.createElement("div");
-    overlay.classList.add("popup-overlay");
-
-    overlay.appendChild(popup);
-    document.body.appendChild(overlay);
-
-    popup.addEventListener("click", function() {
-        document.body.removeChild(overlay);
-    });
-
-    setTimeout(function() {
-        if (document.body.contains(overlay)) {
-            document.body.removeChild(overlay);
-        }
-    }, 3000);
-}

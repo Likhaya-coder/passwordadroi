@@ -20,16 +20,23 @@ class UserInterestController extends Controller
         $validated = $request->validated();
 
         // Store user's interest and purchase date     
-        UserInterest::create([
-            'interested' => $validated['interest'] === 'yes',
-            'product_title' => $validated['product_title'],
-            'user_email' => $validated['user_email'],
-            'purchase_date' => $validated['buyDate'],
-            'price' => $validated['price'],
-            'promotion' => $validated['promotion'],
-        ]);
-
-        // Redirect to the password reset view
-        return Redirect::route('auth.password-reset-request');
+        try {
+            // Store the user's interest and other details
+            UserInterest::create([
+                'interested' => $validated['interest'] === 'yes',
+                'product_title' => $validated['product_title'],
+                'user_email' => $validated['user_email'] ?: 'Not Interested',
+                'purchase_date' => $validated['buyDate'],
+                'price' => $validated['price'],
+                'promotion' => $validated['promotion'],
+            ]);
+    
+            // Redirect to the password reset view
+            return Redirect::route('auth.password-reset-request');
+        } catch (\Exception $e) {
+            // Handle errors and redirect back with an error message
+            return redirect()->withInput($request->only('email'))
+            ->withErrors(['email' => 'There was an error']);
+        }
     }
 }
