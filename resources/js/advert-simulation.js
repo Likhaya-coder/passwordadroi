@@ -1,3 +1,8 @@
+import coralFleeceImage from '/resources/images/Coral Fleece - Fitted Electric Blanket.jpg';
+import tripodStoolImage from '/resources/images/Marco Tripod Stool - Black.jpg';
+import boltCutterImage from '/resources/images/Bolt Cutter 750mm.jpg';
+import pillowImage from '/resources/images/House of Hamilton - Single Continental Pillow.jpeg';
+
 document.addEventListener("DOMContentLoaded", function() {
     const advertisement = document.querySelector("#advertisement");
     const adImage = document.querySelector("#adImage");
@@ -11,25 +16,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const ads = [
         {
-            imageUrl: "/images/Coral Fleece - Fitted Electric Blanket.jpg",
-            promotion: "20%",
+            imageUrl: coralFleeceImage,
+            promotion: "36%",
             title: "Coral Fleece Fitted Electric Blanket",
-            price: "R 1,300"
+            price: "R 599"
         },
         {
-            imageUrl: "/images/Marco Tripod Stool - Black.jpg",
-            promotion: "48%",
+            imageUrl: tripodStoolImage,
+            promotion: "27%",
             title: "Marco Tripod Stool - Black",
-            price: "R 109"
+            price: "R 129"
         },
         {
-            imageUrl: "/images/Bolt Cutter 750mm.jpg",
+            imageUrl: boltCutterImage,
             promotion: "16%",
             title: "Bolt Cutter 750mm",
             price: "R 499"
         },
         {
-            imageUrl: "/images/House of Hamilton - Single Continental Pillow.jpeg",
+            imageUrl: pillowImage,
             promotion: "32%",
             title: "House of Hamilton - Single Continental Pillow",
             price: "R 229"

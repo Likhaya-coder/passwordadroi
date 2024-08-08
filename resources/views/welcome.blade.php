@@ -53,17 +53,17 @@
             <h2 class="text-3xl mb-5">Key Features</h2>
             <div class="features-container flex flex-wrap justify-around mt-12">
                 <div class="feature-card flex-1 py-5 px-5 max-w-sm m-5 bg-gray-800 text-white rounded-md">
-                    <img src="images/user-engagement.jpg" alt="Engagement" class="mb-5 w-full h-auto">
+                    <img src="{{ Vite::asset('resources/images/user-engagement.jpg') }}" alt="Engagement" class="mb-5 w-full h-auto">
                     <h2 class="text-2xl mb-2">User Engagement</h2>
                     <p class="text-lg leading-relaxed px-5">Our forgot password process provides an efficient way to engage with users, keeping them connected with your brand.</p>
                 </div>
                 <div class="feature-card flex-1 py-5 px-5 max-w-sm m-5 bg-gray-800 text-white rounded-md">
-                    <img src="images/sales-lead.jpg" alt="Leads" class="mb-5 w-full h-auto">
+                    <img src="{{ Vite::asset('resources/images/sales-lead.jpg') }}" alt="Leads" class="mb-5 w-full h-auto">
                     <h2 class="text-2xl mb-2">Lead Generation</h2>
                     <p class="text-lg leading-relaxed px-5">Generate high-quality leads by presenting targeted advertisements to users during the password reset process.</p>
                 </div>
                 <div class="feature-card flex-1 py-5 px-5 max-w-sm m-5 bg-gray-800 text-white rounded-md">
-                    <img src="images/measure-ROI.jpg" alt="ROI" class="mb-5 w-full h-auto">
+                    <img src="{{ Vite::asset('resources/images/measure-ROI.jpg') }}" alt="ROI" class="mb-5 w-full h-auto">
                     <h2 class="text-2xl mb-2">Measure ROI</h2>
                     <p class="text-lg leading-relaxed px-5">Track and measure the return on investment (ROI) of your advertising campaigns with our built-in analytics.</p>
                 </div>

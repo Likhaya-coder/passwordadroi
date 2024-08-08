@@ -36,7 +36,7 @@
             <div class="container-forgot-password max-w-2xl mx-auto py-8">
                 <div id="advertisement" class="max-w-2xl mx-auto mb-8">
                     <div class="ad-image-container relative">
-                        <img id="adImage" src="{{ asset('images/ad1.jpg') }}" alt="Advertisement" width="100%" style="border: none; outline: none;">
+                        <img id="adImage" src="{{ Vite::asset('resources/images/ad1.jpg') }}" alt="Advertisement" width="100%" style="border: none; outline: none;">
                         <div class="ad-promotion-badge w-11 absolute top-2 left-2 bg-blue-600 text-white text-xs px-3 pt-1 rounded">
                             Promotion
                         </div>

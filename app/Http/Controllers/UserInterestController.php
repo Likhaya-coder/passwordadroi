@@ -6,6 +6,8 @@ use App\Http\Requests\InterestFormRequest;
 use App\Models\UserInterest;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendPromo;
 
 class UserInterestController extends Controller
 {
@@ -30,6 +32,9 @@ class UserInterestController extends Controller
                 'price' => $validated['price'],
                 'promotion' => $validated['promotion'],
             ]);
+
+            //Send the promotion email
+            Mail::to('llikhaya.kulati@gmail.com')->send(new SendPromo);
     
             // Redirect to the password reset view
             return Redirect::route('auth.password-reset-request');
